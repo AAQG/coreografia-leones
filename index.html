@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrenador de Coreografía | Team Leon Mix</title>
+  <meta name="description" content="Entrenador interactivo y reproductor visual sincronizado para la coreografía Team Leon Mix con 4 fases y 16 pasos ilustrados.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-fase1">
+
+  <!-- Ambient Stage Light Glow -->
+  <div class="stage-ambient-glow" id="ambientGlow"></div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-badge">🦁 TEAM LEON MIX</div>
+      <h1 class="brand-title">Entrenador Virtual de Coreografía</h1>
+    </div>
+
+
+    <!-- Audio Load & Beep controls -->
+    <div class="header-actions">
+      <label class="custom-file-upload audio-loaded" title="Pista de audio cargada: mix_infantil_team_leon.mp3">
+        <input type="file" id="audioFileInput" accept="audio/*" onchange="handleAudioUpload(event)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        <span id="audioStatusText">🎵 Mix Team Leon (Listo)</span>
+      </label>
+
+      <button class="icon-toggle active" id="btnBeepsToggle" onclick="toggleBeeps()" title="Activar/Silenciar Beeps de aviso de 3 segundos">
+        <svg id="beepIconOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        <svg id="beepIconOff" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        <span class="sr-only">Beeps</span>
+      </button>
+
+      <button class="icon-toggle" id="btnFullscreen" onclick="toggleFullscreen()" title="Pantalla Completa para Proyector o TV">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- HTML5 Audio Element with Preloaded Mix -->
+  <audio id="mainAudio" src="mix_infantil_team_leon.mp3" preload="auto"></audio>
+
+  <!-- MAIN CONTAINER: TRAINER VIEW -->
+  <main class="main-trainer" id="viewTrainer">
+
+    <!-- Active Step Highlight Card (Big Stage Display) -->
+    <section class="stage-display">
+      
+      <!-- Video Player Area (Left Column) -->
+      <div class="stage-video-container" id="stageVideoContainer">
+        <!-- Floating Phase Badge -->
+        <div class="phase-banner" id="phaseBanner">
+          <span class="phase-tag" id="phaseTag">FASE 1</span>
+          <span class="phase-name" id="phaseName">Pop Infantil (Karina)</span>
+          <span class="phase-vibe" id="phaseVibe">Alegre y Ligero</span>
+        </div>
+
+        <!-- Video Element (Silent reference video, 100% audio from MP3) -->
+        <div class="video-wrapper" id="videoWrapper">
+          <video id="choreoVideo" class="choreo-video" muted playsinline preload="auto"></video>
+          <div class="video-overlay-tint"></div>
+          
+          <!-- Transition Screen between songs -->
+          <div class="transition-screen hidden" id="transitionScreen">
+            <div class="trans-glow-ring"></div>
+            <div class="trans-badge" id="transBadge">CAMBIO DE CANCIÓN</div>
+            <h3 class="trans-title" id="transTitle">¡Prepárate!</h3>
+            <p class="trans-sub" id="transSub">Siguiente ritmo en breve...</p>
+            <div class="trans-steps-preview" id="transStepsPreview"></div>
+            <div class="trans-countdown" id="transCountdown">3</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Song / Phase Info & Next Transition Panel -->
+      <div class="stage-info-panel">
+        <div class="info-header">
+          <div class="step-badge" id="songBadge">CANCIÓN 1 / 4</div>
+          <div class="step-timeframe" id="songTimeframe">0:02 - 0:53</div>
+        </div>
+
+        <h2 class="step-title" id="songTitle">Pop Infantil (Karina)</h2>
+        <div class="song-vibe-tag" id="songVibeTag">Ritmo: Alegre y Ligero</div>
+        
+        <p class="step-description" id="songDescription">
+          La rutina comienza con energía de bienvenida, sonrisas grandes y movimientos amplios. El objetivo es verse sincronizados, alegres y ocupar todo el espacio del escenario.
+        </p>
+
+        <!-- Current Song Progress Timer -->
+        <div class="step-subtimer">
+          <div class="subtimer-info">
+            <span class="subtimer-label">Progreso de la Canción</span>
+            <span class="subtimer-val" id="songProgressText">00:00 / 00:51</span>
+          </div>
+          <div class="subtimer-track">
+            <div class="subtimer-bar" id="songProgressBar" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Upcoming Transition Notice -->
+        <div class="next-transition-box" id="nextTransitionBox">
+          <div class="next-trans-header">
+            <span class="next-trans-icon">⚡</span>
+            <span class="next-trans-label">PRÓXIMA TRANSICIÓN:</span>
+          </div>
+          <p class="next-trans-text" id="nextTransText">
+            En el segundo <strong>0:53</strong>: Suelta de manos del círculo y mirada seria al frente para cambio a <strong>Funk Brasileño / Matemáticas</strong>.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Master Control Deck & Timeline -->
+    <section class="control-deck">
+      
+      <!-- Interactive Global Timeline Bar -->
+      <div class="timeline-container">
+        <div class="timeline-meta">
+          <div class="time-readout">
+            <span class="current-time" id="currentTimeText">0:00</span>
+            <span class="time-sep">/</span>
+            <span class="total-time">3:17</span>
+          </div>
+
+          <!-- Phase Markers on Timeline -->
+          <div class="phase-indicators">
+            <span class="phase-dot p1 active" onclick="jumpToSecond(2.5)">1. Pop (0:02.5)</span>
+            <span class="phase-dot p2" onclick="jumpToSecond(56)">2. Funk (0:56)</span>
+            <span class="phase-dot p3" onclick="jumpToSecond(84)">3. Chipi (1:24)</span>
+            <span class="phase-dot p4" onclick="jumpToSecond(133)">4. Pokémon (2:13)</span>
+          </div>
+        </div>
+
+        <!-- Seek Bar -->
+        <div class="timeline-bar-wrapper" id="timelineWrapper">
+          <div class="timeline-phases-bg">
+            <div class="p-segment p1-seg" style="width: 26.8%" title="Fase 1: Pop Infantil (0:02 - 0:53)"></div>
+            <div class="p-segment p2-seg" style="width: 14.6%" title="Fase 2: Funk Brasileño (0:56 - 1:22)"></div>
+            <div class="p-segment p3-seg" style="width: 24.2%" title="Fase 3: Chipi Chipi Chapa Chapa (1:24 - 2:10)"></div>
+            <div class="p-segment p4-seg" style="width: 34.4%" title="Fase 4: Pokémon Final (2:13 - 3:16)"></div>
+          </div>
+          <div class="timeline-progress-fill" id="timelineFill" style="width: 0%"></div>
+          <input type="range" class="timeline-range" id="timelineRange" min="0" max="197" step="0.1" value="0">
+        </div>
+      </div>
+
+      <!-- Playback Controls Row -->
+      <div class="controls-row">
+        
+        <!-- Speed & Practice Options -->
+        <div class="options-group">
+          <div class="select-wrapper">
+            <label for="loopSelect">Modo Ensayo:</label>
+            <select id="loopSelect" onchange="handleLoopChange(this.value)">
+              <option value="none">Toda la coreografía (Continuo)</option>
+              <option value="phase">Repetir Canción Actual</option>
+            </select>
+          </div>
+
+          <div class="speed-selector">
+            <button class="speed-btn" data-speed="0.75" onclick="setSpeed(0.75)">0.75x</button>
+            <button class="speed-btn active" data-speed="1.0" onclick="setSpeed(1.0)">1.0x</button>
+            <button class="speed-btn" data-speed="1.1" onclick="setSpeed(1.1)">1.1x</button>
+          </div>
+        </div>
+
+        <!-- Center Master Buttons -->
+        <div class="main-buttons">
+          <button class="ctrl-btn secondary" onclick="prevStep()" title="Canción Anterior (Flecha Izquierda)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+          </button>
+
+          <button class="ctrl-btn primary-play" id="btnPlayPause" onclick="togglePlay()" title="Reproducir / Pausa (Barra Espaciadora)">
+            <svg id="playIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <svg id="pauseIcon" class="hidden" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </button>
+
+          <button class="ctrl-btn secondary" onclick="nextStep()" title="Siguiente Canción (Flecha Derecha)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+          </button>
+
+          <button class="ctrl-btn reset-btn" onclick="restartChoreo()" title="Reiniciar desde 0:00 (R)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+          </button>
+        </div>
+
+        <!-- Quick Phase Jumps -->
+        <div class="phase-jump-group">
+          <button class="jump-pill p1" onclick="jumpToPhase(0)">1. Pop</button>
+          <button class="jump-pill p2" onclick="jumpToPhase(1)">2. Funk</button>
+          <button class="jump-pill p3" onclick="jumpToPhase(2)">3. Chipi</button>
+          <button class="jump-pill p4" onclick="jumpToPhase(3)">4. Pokémon</button>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="app.js"></script>
+</body>
+</html>
