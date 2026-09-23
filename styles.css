@@ -910,28 +910,36 @@ body {
 
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (Tablets & Phones)
+   RESPONSIVE DESIGN (Tablets, Phones & Landscape Rehearsal)
    ========================================================================== */
 
+/* 1. Tablets / iPad (1024px and down) */
 @media (max-width: 1024px) {
+  .main-trainer {
+    padding: 16px 20px;
+    gap: 16px;
+  }
+
   .stage-display {
     grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 16px;
   }
 
   .stage-video-container {
     height: auto;
     min-height: 380px;
-    max-height: 55vh;
+    max-height: 52vh;
   }
 
-
   .step-title {
-    font-size: 1.6rem;
+    font-size: 1.55rem;
   }
 
   .controls-row {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 16px;
   }
 
   .phase-jump-group {
@@ -941,32 +949,338 @@ body {
   }
 }
 
-@media (max-width: 640px) {
+/* 2. Small Tablets & Standard Smartphones (768px and down) */
+@media (max-width: 768px) {
   .app-header {
-    flex-direction: column;
-    align-items: stretch;
     padding: 12px 16px;
+    gap: 12px;
   }
 
+  .brand-badge {
+    font-size: 0.68rem;
+  }
 
-  .header-actions {
-    justify-content: space-between;
+  .brand-title {
+    font-size: 1.15rem;
+  }
+
+  .custom-file-upload {
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
 
   .main-trainer {
-    padding: 12px 14px;
+    padding: 10px 12px;
+    gap: 12px;
   }
 
   .stage-display {
-    padding: 14px;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    gap: 12px;
+  }
+
+  .stage-video-container {
+    min-height: 260px;
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  /* Transition screen optimizations for mobile */
+  .trans-glow-ring {
+    width: 180px;
+    height: 180px;
+  }
+
+  .trans-badge {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+  }
+
+  .trans-title {
+    font-size: 1.45rem;
+  }
+
+  .trans-sub {
+    font-size: 0.9rem;
+    max-width: 90%;
+  }
+
+  .trans-countdown {
+    width: 64px;
+    height: 64px;
+    font-size: 2.3rem;
+    margin-top: 2px;
+  }
+
+  .trans-steps-preview {
+    gap: 6px;
+    margin: 6px 0;
+  }
+
+  .trans-step-chip {
+    padding: 5px 12px;
+    font-size: 0.78rem;
+  }
+
+  /* Timeline & Meta */
+  .time-readout {
+    font-size: 1.15rem;
+  }
+
+  .phase-indicators {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    max-width: 60%;
+  }
+
+  .phase-indicators::-webkit-scrollbar {
+    display: none;
+  }
+
+  .phase-dot {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+
+  .timeline-bar-wrapper {
+    height: 26px;
+  }
+
+  /* Ergonomic mobile control layout */
+  .controls-row {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .main-buttons {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .ctrl-btn.primary-play {
+    width: 58px;
+    height: 58px;
+  }
+
+  .ctrl-btn.secondary {
+    width: 44px;
+    height: 44px;
+  }
+
+  .options-group {
+    order: 2;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .select-wrapper {
+    font-size: 0.8rem;
+  }
+
+  .select-wrapper select {
+    font-size: 0.78rem;
+    padding: 5px 8px;
+    max-width: 180px;
+  }
+
+  .speed-btn {
+    font-size: 0.75rem;
+    padding: 3px 6px;
+  }
+
+  .phase-jump-group {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .jump-pill {
+    font-size: 0.78rem;
+    padding: 5px 12px;
+  }
+}
+
+/* 3. Compact Mobile (480px and down) */
+@media (max-width: 480px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .brand-title {
+    font-size: 1.05rem;
+  }
+
+  .header-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .custom-file-upload {
+    max-width: calc(100% - 94px);
+    overflow: hidden;
+    padding: 6px 10px;
+  }
+
+  .custom-file-upload span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.75rem;
+  }
+
+  .main-trainer {
+    padding: 6px 8px;
+    gap: 10px;
+  }
+
+  .stage-display {
+    padding: 8px;
+  }
+
+  .stage-video-container {
+    min-height: 210px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .phase-banner {
+    top: 6px;
+    left: 6px;
+    padding: 3px 8px;
+    gap: 5px;
+  }
+
+  .phase-tag {
+    font-size: 0.62rem;
+    padding: 2px 5px;
+  }
+
+  .phase-name {
+    font-size: 0.75rem;
+  }
+
+  .phase-vibe {
+    display: none;
+  }
+
+  .trans-title {
+    font-size: 1.25rem;
+  }
+
+  .trans-sub {
+    font-size: 0.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .trans-countdown {
+    width: 54px;
+    height: 54px;
+    font-size: 1.9rem;
+  }
+
+  .trans-step-chip {
+    padding: 3px 8px;
+    font-size: 0.7rem;
   }
 
   .step-title {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
+    margin-bottom: 4px;
   }
 
   .step-description {
+    font-size: 0.85rem;
+    padding: 8px 10px;
+    line-height: 1.4;
+  }
+
+  .next-transition-box {
+    padding: 8px 10px;
+    margin-top: 8px;
+  }
+
+  .next-trans-text {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  .time-readout {
+    font-size: 1rem;
+  }
+
+  .control-deck {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .select-wrapper label {
+    display: none;
+  }
+
+  .select-wrapper select {
+    max-width: 140px;
+  }
+
+  .options-group {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px;
+  }
+}
+
+/* 4. Landscape Rehearsal Mode on Phones */
+@media (max-height: 500px) and (orientation: landscape) {
+  .app-header {
+    padding: 6px 14px;
+  }
+
+  .brand-badge {
+    display: none;
+  }
+
+  .brand-title {
     font-size: 0.95rem;
-    padding: 12px;
+  }
+
+  .main-trainer {
+    padding: 6px 12px;
+    gap: 8px;
+  }
+
+  .stage-display {
+    grid-template-columns: 1.6fr 1fr;
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .stage-video-container {
+    height: 55vh;
+    min-height: 180px;
+  }
+
+  .step-description {
+    display: none;
+  }
+
+  .next-transition-box {
+    margin-top: 4px;
+    padding: 6px 8px;
   }
 }
